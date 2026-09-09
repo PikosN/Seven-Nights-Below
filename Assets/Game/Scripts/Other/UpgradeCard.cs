@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class UpgradeCard : MonoBehaviour
 {
+    public AudioSource uiAudioSource;
+
+    public AudioClip buySound;
+    public AudioClip failedBuySound;
+
     public TMP_Text nameText;
     public TMP_Text descriptionText;
     public TMP_Text costText;
@@ -11,6 +16,12 @@ public class UpgradeCard : MonoBehaviour
     public Button buyButton;
 
     private UpgradeData upgrade;
+
+    void Awake()
+    {
+        uiAudioSource = GameObject.Find("UIAudioSource").GetComponent<AudioSource>();
+    }
+
     public void Setup(UpgradeData cardData)
     {
         upgrade = cardData;
@@ -30,6 +41,8 @@ public class UpgradeCard : MonoBehaviour
             );
         if (G.economyManager.TrySpentMoney(cost))
         {
+            uiAudioSource.PlayOneShot(buySound, 0.4f);
+
             G.upgradeManager.ApplyUpgrade(upgrade);
             if (G.upgradeManager.GetUpgradeLevel(upgrade.id) < upgrade.amountOfUpgrades)
             {
@@ -39,6 +52,10 @@ public class UpgradeCard : MonoBehaviour
             {
                 SetPurchased();
             }
+        }
+        else
+        {
+            uiAudioSource.PlayOneShot(failedBuySound, 0.4f);
         }
     }
     public void Refresh()
@@ -60,13 +77,13 @@ public class UpgradeCard : MonoBehaviour
         }
 
         // 100% -> 110%
-        if (upgrade.showStats == true)
-        {
-            statsText.enabled = true;
-            statsText.text = $"{Mathf.Pow(upgrade.effectRate, level) * 100:0.}% -> {Mathf.Pow(upgrade.effectRate, level + 1) * 100:0.}%";
-        }
+        //if (upgrade.showStats == true)
+        //{
+        //    statsText.enabled = true;
+        //    statsText.text = $"{Mathf.Pow(upgrade.effectRate, level) * 100:0.}% -> {Mathf.Pow(upgrade.effectRate, level + 1) * 100:0.}%";
+        //}
 
-        costText.text = cost + "$";
+        costText.text = "$" + cost;
     }
 
     public void Delete()
@@ -79,7 +96,7 @@ public class UpgradeCard : MonoBehaviour
     {
         buyButton.interactable = false;
         costText.text = "";
-        statsText.text = $"{Mathf.Pow(upgrade.effectRate, G.upgradeManager.GetUpgradeLevel(upgrade.id) * 100):0.}%";
+        //statsText.text = $"{Mathf.Pow(upgrade.effectRate, G.upgradeManager.GetUpgradeLevel(upgrade.id) * 100):0.}%";
         if (upgrade.showStats == true)
         {
             buyButton.GetComponentInChildren<TMP_Text>().text = "MAXED";

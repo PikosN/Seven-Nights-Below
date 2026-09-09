@@ -320,7 +320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'COST: 10$'
+  m_text: 'COST: $10'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 241ec207582d652448942ae1277c2016, type: 2}
   m_sharedMaterial: {fileID: -8336369256487054350, guid: 241ec207582d652448942ae1277c2016, type: 2}
@@ -622,7 +622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5168664148399654523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -834,6 +834,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c26c82f0ce7c54ab9974b7cf509778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
+  uiAudioSource: {fileID: 0}
+  buySound: {fileID: 8300000, guid: 9fc76739a4c3d884b99f646fe2c7dab7, type: 3}
+  failedBuySound: {fileID: 8300000, guid: 513e0d71ef01b564588c8a15d847088d, type: 3}
   nameText: {fileID: 2739700302148394576}
   descriptionText: {fileID: 4429574630695292167}
   costText: {fileID: 6686397693522622164}

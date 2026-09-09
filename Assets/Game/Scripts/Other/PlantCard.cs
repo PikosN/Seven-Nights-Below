@@ -46,7 +46,7 @@ public class PlantCard : MonoBehaviour
                 plant.costGrowthRate,
                 G.plantManager.currentPlants
             );
-        plantCost.text = cost + "$";
+        plantCost.text = "$" + cost;
     }
 
     public void Delete()

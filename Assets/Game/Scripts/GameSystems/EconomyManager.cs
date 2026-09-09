@@ -26,8 +26,8 @@ public class EconomyManager : MonoBehaviour
     }
     void UpdateMoneyUI()
     {
-        FPMoneyText.text = money + "$";
-        shopMoneyText.text = money + "$";
+        FPMoneyText.text = "$" + money;
+        shopMoneyText.text = "$" + money;
     }
 
     public void Reset()

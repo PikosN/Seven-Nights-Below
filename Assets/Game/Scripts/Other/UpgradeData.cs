@@ -22,7 +22,7 @@ public class AllUpgrades
         {
             id = "growth",
             name = "[00] BETTER LAMPS",
-            description = "Plants grow 10% faster",
+            description = "Plants growth time -10%",
             baseCost = 20,
             amountOfUpgrades = 10,
             costGrowthRate = 1.7f,
@@ -35,7 +35,7 @@ public class AllUpgrades
         {
             id = "money",
             name = "[01] FERTILIZERS",
-            description = "The value of plants increases",
+            description = "The value of plant +20%",
             baseCost = 25,
             amountOfUpgrades = 10,
             costGrowthRate = 1.8f,
@@ -47,7 +47,7 @@ public class AllUpgrades
         {
             id = "autoharvest",
             name = "[02] AUTOHARVESTING",
-            description = "Don't waste your time!",
+            description = "Automatic plant harvesting!",
             baseCost = 100,
             amountOfUpgrades = 1,
             costGrowthRate = 1f
@@ -56,7 +56,7 @@ public class AllUpgrades
         {
             id = "bonus_chance",
             name = "[03] BONUS CHANCE",
-            description = "The chance of extra money increases",
+            description = "The chance of extra money +5%",
             baseCost = 40,
             amountOfUpgrades = 20,
             costGrowthRate = 2f,
@@ -67,7 +67,7 @@ public class AllUpgrades
         {
             id = "bonus_money",
             name = "[04] BETTER FERTILIZERS",
-            description = "The value of extra money increases",
+            description = "The value of extra money +1",
             baseCost = 100,
             amountOfUpgrades = 5,
             costGrowthRate = 2.3f,

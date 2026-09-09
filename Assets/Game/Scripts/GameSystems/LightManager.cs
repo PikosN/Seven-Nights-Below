@@ -40,7 +40,7 @@ public class LightManager : MonoBehaviour
     {
         isLightOn = true;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
 
         foreach (Lamp lamp in Lamps)
         {

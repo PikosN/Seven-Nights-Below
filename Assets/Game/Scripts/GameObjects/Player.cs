@@ -8,6 +8,14 @@ interface IInteractable
 }
 public class Player : MonoBehaviour
 {
+    public AudioSource footstepSource;
+    public AudioClip[] footstepSounds;
+
+    public float footstepInterval = 0.4f;
+
+    private float footstepTimer = 0f;
+
+
     public float movementSpeed = 1f;
     public float jumpHeight = 1f;
     public float gravityValue = -9.81f;
@@ -18,12 +26,13 @@ public class Player : MonoBehaviour
     private float yRotation = 180f;
 
 
+
     public float interactRange = 1.5f;
     public LayerMask interactionLayer;
     
 
     public InputActionReference moveAction;
-    public InputActionReference jumpAction;
+    //public InputActionReference jumpAction;
     public InputActionReference lookAction;
     public InputActionReference interactAction;
 
@@ -37,7 +46,7 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         moveAction.action.Enable();
-        jumpAction.action.Enable();
+        //jumpAction.action.Enable();
         lookAction.action.Enable();
         interactAction.action.Enable();
 
@@ -46,7 +55,7 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         moveAction.action.Disable();
-        jumpAction.action.Disable();
+        //jumpAction.action.Disable();
         lookAction.action.Disable();
         interactAction.action.Disable();
     }
@@ -76,13 +85,31 @@ public class Player : MonoBehaviour
         }
 
         Vector2 input = moveAction.action.ReadValue<Vector2>();
+
+        bool isMoving = input.magnitude > 0f;
+
+        if (isMoving &&  isGrounded)
+        {
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= footstepInterval)
+            {
+                footstepSource.PlayOneShot(footstepSounds[Random.Range(0, footstepSounds.Length)]);
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
+        }
+
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         move = Vector3.ClampMagnitude(move, 1f);
 
-        if (isGrounded && jumpAction.action.WasPressedThisFrame())
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
-        }
+        //if (isGrounded && jumpAction.action.WasPressedThisFrame())
+        //{
+        //    playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
+        //}
 
         playerVelocity.y += gravityValue * Time.deltaTime;
 

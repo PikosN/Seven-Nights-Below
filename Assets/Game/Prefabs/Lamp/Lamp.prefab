@@ -175,10 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add875c3f6a2425408daa2a36b783a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lamp
-  audioSource: {fileID: 0}
   lightsRenderer: {fileID: 4164626856547812041}
   spotLightSource: {fileID: 3153069400501611329}
   pointLightSource: {fileID: 9207076984162420566}
+  lampAudioSource: {fileID: 4853950606565345595}
+  offSound: {fileID: 8300000, guid: 75addcea141671e44ad33675df985710, type: 3}
 --- !u!1 &7569005485248691112
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +352,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 840322824aec15645a4f90f8698aaeaa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -395,7 +396,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.85
       inSlope: 0
       outSlope: 0
       tangentMode: 0

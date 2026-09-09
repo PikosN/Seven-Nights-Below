@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlantSpot : MonoBehaviour, IInteractable
 {
+    public AudioSource interactionAudioSource;
+    public AudioClip[] plantSounds;
+
     public GameObject plantVisual;
     private enum State
     {
@@ -15,6 +18,8 @@ public class PlantSpot : MonoBehaviour, IInteractable
 
     public GameObject growthBar;
     public GameObject fillBar;
+
+    public float growthTime;
 
     public void Interact()
     {
@@ -45,7 +50,7 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 plant.costGrowthRate,
                 G.plantManager.currentPlants
             );
-            return $"Press E to plant for {plantCost}$";
+            return $"Press E to plant for ${plantCost}";
         }
         if (state == State.Growing)
         {
@@ -61,6 +66,8 @@ public class PlantSpot : MonoBehaviour, IInteractable
 
     public void Plant(PlantData plant)
     {
+        interactionAudioSource.PlayOneShot(plantSounds[Random.Range(0, plantSounds.Length)]);
+
         plantData = plant;
         plantVisual.SetActive(true);
         state = State.Growing;
@@ -70,10 +77,14 @@ public class PlantSpot : MonoBehaviour, IInteractable
         G.plantManager.plantSpots.Add(this);
 
         growthBar.SetActive(G.lightManager.isLightOn);
+
+        SetGrowthTime();
     }
 
     void Harvest()
     {
+        interactionAudioSource.PlayOneShot(plantSounds[Random.Range(0, plantSounds.Length)]);
+
         plantVisual.SetActive(false);
         plantVisual.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
@@ -101,7 +112,12 @@ public class PlantSpot : MonoBehaviour, IInteractable
         plantVisual.SetActive(true);
         state = State.Growing;
         growTimer = 0f;
+
+        SetGrowthTime();
     }
+
+
+
     void Update()
     {
         if (state != State.Growing) return;
@@ -109,11 +125,6 @@ public class PlantSpot : MonoBehaviour, IInteractable
         if (!G.lightManager.isLightOn) return;
 
         growTimer += Time.deltaTime;
-        float growthTime = GameMath.GetGrowthTime(
-                plantData.baseGrowthTime,
-                AllUpgrades.GetUpgrade("growth").effectRate,
-                G.upgradeManager.GetUpgradeLevel("growth")
-            );
         float progress = Mathf.Clamp01(growTimer / growthTime);
 
         fillBar.transform.localScale = new Vector3(progress, 1f, 1f);
@@ -132,6 +143,15 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 state = State.Ready;
             }
         }
+    }
+
+    public void SetGrowthTime()
+    {
+        growthTime = GameMath.GetGrowthTime(
+                plantData.baseGrowthTime,
+                AllUpgrades.GetUpgrade("growth").effectRate,
+                G.upgradeManager.GetUpgradeLevel("growth")
+            ) + Random.Range(-1.5f, 1.5f);
     }
 
     public void Reset()
