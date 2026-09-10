@@ -22,7 +22,7 @@ public class Bed : MonoBehaviour, IInteractable
     {
         if (G.progressManager.isDayCompleted)
         {
-            return "Press E to go to sleep";
+            return "[ E ] Sleep";
         }
         else
         {

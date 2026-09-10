@@ -13,6 +13,7 @@ public class Main : MonoBehaviour
     public UIManager UImanager;
     public LightManager lightManager;
     public AudioManager audioManager;
+    public DialogueManager dialogueManager;
 
 
     void Awake()
@@ -28,6 +29,7 @@ public class Main : MonoBehaviour
         G.UIManager = UImanager;
         G.lightManager = lightManager;
         G.audioManager = audioManager;
+        G.dialogueManager = dialogueManager;
 
         StartGame();
     }

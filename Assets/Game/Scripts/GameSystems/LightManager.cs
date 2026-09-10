@@ -14,7 +14,7 @@ public class LightManager : MonoBehaviour
         Lamps = FindObjectsByType<Lamp>();
     }
 
-    public bool isLightOn = true;
+    public bool isLightOn = false;
     public event Action OnLightsTurnedOff;
     public event Action OnLightsTurnedOn;
 
@@ -28,11 +28,10 @@ public class LightManager : MonoBehaviour
         {
             lamp.SetEnabled(false);
         }
-
-        if (flashlightCoroutine != null) StopCoroutine(flashlightCoroutine);
-        flashlightCoroutine = StartCoroutine(FlashlightFlickering());
-
-        StartCoroutine(FadeLight(emergencyLight, 3f, 0.5f));
+        
+        EnableFlashlight(true);
+        
+        StartCoroutine(FadeLight(emergencyLight, 5f, 0.5f));
 
         OnLightsTurnedOff?.Invoke();
     }
@@ -47,12 +46,25 @@ public class LightManager : MonoBehaviour
             lamp.SetEnabled(true);
         }
 
-        if (flashlightCoroutine != null) StopCoroutine(flashlightCoroutine);
-        flashlight.enabled = false;
+        EnableFlashlight(false);
 
         StartCoroutine(FadeLight(emergencyLight, 0f, 0.2f));
 
         OnLightsTurnedOn?.Invoke();
+    }
+
+    public void EnableFlashlight(bool on)
+    {
+        if (on)
+        {
+            if (flashlightCoroutine != null) StopCoroutine(flashlightCoroutine);
+            flashlightCoroutine = StartCoroutine(FlashlightFlickering());
+        }
+        else
+        {
+            if (flashlightCoroutine != null) StopCoroutine(flashlightCoroutine);
+            flashlight.enabled = false;
+        }
     }
 
     IEnumerator FlashlightFlickering()

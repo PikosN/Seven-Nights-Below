@@ -13,6 +13,8 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public Image[] cells;
     public TMP_Text powerLevelText;
     public Image border;
+    
+    public Image  electricityLevelImage;
 
     public Color emptyColor = new Color32(37, 40, 37, 255);
     public Color redColor = new Color32(166, 61, 54, 255);
@@ -22,7 +24,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public InputActionReference cancelAction;
 
     public int maxEnergy = 15;
-    public int energy = 15;
+    public int energy = 0;
 
     private float timer = 0f;
     private float cellWorkTime = 3f;
@@ -32,7 +34,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public RectTransform greenZone;
 
     public RectTransform cursor;
-    public float cursorSpeed = 500f;
+    public float cursorSpeed = 100f;
     private float cursorDirection = 1f;
 
     private void OnEnable()
@@ -47,15 +49,6 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public void Interact()
     {
         OpenUI();
-        //if (!G.lightManager.isLightOn)
-        //{
-        //    SwitchAudioSource.PlayOneShot(switchSound);
-        //    StartCoroutine(G.lightManager.TurnOnLights());
-        //}
-        //else
-        //{
-        //    G.lightManager.TurnOffLights();
-        //}
     }
 
     public void OpenUI()
@@ -78,14 +71,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        if (G.lightManager.isLightOn)
-        {
-            return "Light switch";
-        }
-        else
-        {
-            return "Press E to turn lights on";
-        }
+        return "[ E ] Open panel";
     }
 
     void Awake()
@@ -95,6 +81,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     void Start()
     {
+        UpdateUIColor();
         RandomizeTarget();
     }
 
@@ -116,6 +103,13 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
         if (energy == 0 && G.lightManager.isLightOn)
         {
             G.lightManager.TurnOffLights();
+            cursorSpeed = 250f;
+        }
+        if (energy > 0 && !G.lightManager.isLightOn)
+        {
+            timer = -2f;
+            SwitchAudioSource.PlayOneShot(switchSound);
+            StartCoroutine(G.lightManager.TurnOnLights());
         }
         if (electricalPanelUI.activeSelf)
         {
@@ -150,14 +144,20 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
         powerLevelText.color = color;
         powerLevelText.text = $"{energy}/{maxEnergy}";
         border.color = color;
+        
+        electricityLevelImage.color = color;
     }
     Color32 GetEnergyColor()
     {
+        if (energy == 0f)
+        {
+            return emptyColor;
+        }
         if (energy <= 3f)
         {
             return redColor;
         }
-        if (energy <= 10f)
+        if (energy <= 8f)
         {
             return yellowColor;
         }
@@ -222,13 +222,13 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
             {
                 AddEnergy(1);
             }
-            cursorSpeed = Mathf.Clamp(cursorSpeed + 100f, 500, 1000);
+            cursorSpeed = Mathf.Clamp(cursorSpeed + 100f, 250, 1000);
             RandomizeTarget();
         }
         else
         {
             AddEnergy(-1);
-            cursorSpeed = Mathf.Clamp(cursorSpeed - 100f, 500, 1000);
+            cursorSpeed = Mathf.Clamp(cursorSpeed - 100f, 250, 1000);
         }
     }
 }

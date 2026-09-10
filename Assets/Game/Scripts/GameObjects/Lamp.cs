@@ -23,8 +23,6 @@ public class Lamp : MonoBehaviour
 
     public void SetEnabled(bool enabled)
     {
-        
-
         spotLightSource.enabled = enabled;
         pointLightSource.enabled = enabled;
 
@@ -40,7 +38,7 @@ public class Lamp : MonoBehaviour
         }
         else
         {
-            lampAudioSource.PlayOneShot(offSound, 2f);
+            lampAudioSource.PlayOneShot(offSound, 1f);
             StartCoroutine(SmoothVolumeTransition(lampAudioSource, 0f, 1f));
 
             materialOfLamp.SetColor("_BaseColor", new Color32(127, 127, 127, 255));

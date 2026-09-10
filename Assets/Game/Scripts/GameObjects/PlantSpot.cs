@@ -50,7 +50,7 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 plant.costGrowthRate,
                 G.plantManager.currentPlants
             );
-            return $"Press E to plant for ${plantCost}";
+            return $"[ E ] Plant for ${plantCost}";
         }
         if (state == State.Growing)
         {

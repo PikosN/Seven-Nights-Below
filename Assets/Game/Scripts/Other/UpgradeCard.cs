@@ -14,12 +14,14 @@ public class UpgradeCard : MonoBehaviour
     public TMP_Text costText;
     public TMP_Text statsText;
     public Button buyButton;
+    public TMP_Text buyText;
 
     private UpgradeData upgrade;
 
     void Awake()
     {
         uiAudioSource = GameObject.Find("UIAudioSource").GetComponent<AudioSource>();
+        buyText = buyButton.GetComponentInChildren<TMP_Text>();
     }
 
     public void Setup(UpgradeData cardData)
@@ -99,11 +101,11 @@ public class UpgradeCard : MonoBehaviour
         //statsText.text = $"{Mathf.Pow(upgrade.effectRate, G.upgradeManager.GetUpgradeLevel(upgrade.id) * 100):0.}%";
         if (upgrade.showStats == true)
         {
-            buyButton.GetComponentInChildren<TMP_Text>().text = "MAXED";
+            buyText.text = "MAXED";
         }
         else
         {
-            buyButton.GetComponentInChildren<TMP_Text>().text = "PURCHASED";
+            buyText.text = "PURCHASED";
         }
     }
 }

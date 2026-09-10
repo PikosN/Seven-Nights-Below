@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UpgradeStation : MonoBehaviour, IInteractable
 {
-    public string interactText = "Press E to open the shop";
+    public string interactText = "[ E ] Open the shop";
     public void Interact()
     {
         G.shopUI.OpenShop();

@@ -8,7 +8,7 @@ public class ShopUI : MonoBehaviour
     public GameObject shopPanel;
     public UpgradeCard upgradeCardPrefab;
     public Transform content;
-    public TMP_Text FPMoneyText;
+    public GameObject fpMoneyText;
 
     public InputActionReference cancelAction;
 
@@ -43,7 +43,7 @@ public class ShopUI : MonoBehaviour
     public void OpenShop()
     {
         shopPanel.SetActive(true);
-        FPMoneyText.enabled = false;
+        fpMoneyText.SetActive(false);
 
         G.player.SetMovementEnabled(false);
         Cursor.lockState = CursorLockMode.None;
@@ -53,7 +53,7 @@ public class ShopUI : MonoBehaviour
     public void CloseShop()
     {
         shopPanel.SetActive(false);
-        FPMoneyText.enabled = true;
+        fpMoneyText.SetActive(true);
 
         G.player.SetMovementEnabled(true);
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,10 +67,16 @@ public class ShopUI : MonoBehaviour
             activeUpgradeCards[0].Delete();
         }
 
-        CreateUpgradeCard("growth");
-        CreateUpgradeCard("money");
-        CreateUpgradeCard("autoharvest");
-        CreateUpgradeCard("bonus_chance");
-        CreateUpgradeCard("bonus_money");
+        if (G.prestigeManager.prestigeLevel == 0)
+        {
+            CreateUpgradeCard("growth");
+            CreateUpgradeCard("money");
+        }
+        if (G.prestigeManager.prestigeLevel == 1)
+        {
+            CreateUpgradeCard("autoharvest");
+            CreateUpgradeCard("bonus_chance");
+            CreateUpgradeCard("bonus_money");
+        }
     }
 }

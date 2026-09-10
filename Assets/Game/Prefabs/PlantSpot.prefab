@@ -265,6 +265,7 @@ MonoBehaviour:
   plantVisual: {fileID: 1274964110527726684}
   growthBar: {fileID: 4000326254851867284}
   fillBar: {fileID: 6332659980273183349}
+  growthTime: 0
 --- !u!1 &3539999875741330212
 GameObject:
   m_ObjectHideFlags: 0

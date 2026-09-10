@@ -11,4 +11,5 @@ public class G
     public static UIManager UIManager;
     public static LightManager lightManager;
     public static AudioManager audioManager;
+    public static DialogueManager dialogueManager;
 }

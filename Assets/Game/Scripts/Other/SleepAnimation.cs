@@ -9,6 +9,9 @@ public class SleepAnimation : MonoBehaviour
     public Transform sittingPosition;
     public Transform standingPosition;
 
+    public AudioSource doorAudioSource;
+    public AudioClip knockSound;
+
     private bool isAnimating = false;
 
     public IEnumerator GoToSleep()
@@ -18,7 +21,9 @@ public class SleepAnimation : MonoBehaviour
             yield break;
         }
         isAnimating = true;
-
+        
+        G.lightManager.EnableFlashlight(false);
+        
         G.UIManager.SetUIEnabled(false);
         G.player.SetMovementEnabled(false);
 
@@ -46,10 +51,21 @@ public class SleepAnimation : MonoBehaviour
         playerTransform.rotation = lyingPosition.rotation;
 
         standingPosition.rotation = Quaternion.Euler(0f, 0f, 0f);
-
+        
+        doorAudioSource.PlayOneShot(knockSound);
         yield return new WaitForSeconds(1f);
         yield return MoveCamera(lyingPosition, sittingPosition, 0.5f);
-        yield return new WaitForSeconds(0.1f);
+        
+        if (G.prestigeManager.prestigeLevel == 0)
+        {
+            yield return new WaitForSeconds(1.2f);
+            G.UIManager.SetCutsceneUIEnabled(true);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Did you wake up?");
+            G.lightManager.EnableFlashlight(true);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "...");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Get up and start working.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Don't try to open the door.");
+        }
         yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
 
         G.player.ResetCamera(1f);

@@ -16,8 +16,6 @@ public class ProgressManager : MonoBehaviour
 
         G.shopUI.Reset();
 
-        G.plantSelectionUI.Reset();
-
         dayProgress = 0f;
         progress = 0f;
         isDayCompleted = false;

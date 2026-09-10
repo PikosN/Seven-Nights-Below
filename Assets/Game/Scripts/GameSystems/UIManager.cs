@@ -4,9 +4,12 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public GameObject canvas;
+    public GameObject ingameUI;
     public GameObject interactableUI;
     public GameObject defaultCrosshair;
     public TMP_Text interactableText;
+    public GameObject fpMoneyText;
+    public GameObject dialogueUI;
 
     public void SetInteractableUI(bool value, string text)
     {
@@ -17,7 +20,13 @@ public class UIManager : MonoBehaviour
 
     public void SetUIEnabled(bool enabled)
     {
-        canvas.SetActive(enabled);
+        ingameUI.SetActive(enabled);
+        fpMoneyText.SetActive(enabled);
+    }
+
+    public void SetCutsceneUIEnabled(bool enabled)
+    {
+        dialogueUI.SetActive(enabled);
     }
 }
 
