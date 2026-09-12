@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,10 +6,11 @@ public class ProgressManager : MonoBehaviour
 {
     public SleepAnimation sleepAnimation;
 
-    float dayProgress;
+    public float dayProgress;
     public float progress;
-    int dayGoal;
+    public int dayGoal;
     public bool isDayCompleted;
+    public QuotaSign quotaSign;
 
     public void StartDay()
     {
@@ -22,17 +24,26 @@ public class ProgressManager : MonoBehaviour
 
         dayGoal = GameMath.GetDayGoal(500, G.prestigeManager.currentDay);
     }
-    public void AddProgress(int amount)
+
+    public IEnumerator AddProgress(int amount)
     {
-        if (isDayCompleted)
+        for (int i = 0; i < amount; i++)
         {
-            return;
+            dayProgress++;
+            
+            quotaSign.quotaText.text = $"{dayProgress}/{dayGoal}";;
+            
+            progress = Mathf.Clamp01(dayProgress / dayGoal);
+            if (progress >= 1)
+            {
+                isDayCompleted = true;
+                quotaSign.UpdateColor();
+                yield break;
+            }
+            yield return new WaitForSeconds(0.1f);
         }
-        dayProgress += amount;
-        progress = Mathf.Clamp01(dayProgress / dayGoal);
-        if (progress >= 1)
-        {
-            isDayCompleted = true;
-        }
+        
+        
+        
     }
 }

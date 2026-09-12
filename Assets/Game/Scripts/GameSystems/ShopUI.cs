@@ -67,12 +67,11 @@ public class ShopUI : MonoBehaviour
             activeUpgradeCards[0].Delete();
         }
 
-        if (G.prestigeManager.prestigeLevel == 0)
-        {
-            CreateUpgradeCard("growth");
-            CreateUpgradeCard("money");
-        }
-        if (G.prestigeManager.prestigeLevel == 1)
+
+        CreateUpgradeCard("growth");
+        CreateUpgradeCard("money");
+        
+        if (G.prestigeManager.prestigeLevel >= 1)
         {
             CreateUpgradeCard("autoharvest");
             CreateUpgradeCard("bonus_chance");

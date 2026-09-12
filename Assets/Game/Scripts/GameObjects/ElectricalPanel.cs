@@ -34,7 +34,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public RectTransform greenZone;
 
     public RectTransform cursor;
-    public float cursorSpeed = 100f;
+    public float cursorSpeed = 250f;
     private float cursorDirection = 1f;
 
     private void OnEnable()

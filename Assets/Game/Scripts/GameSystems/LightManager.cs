@@ -32,6 +32,8 @@ public class LightManager : MonoBehaviour
         EnableFlashlight(true);
         
         StartCoroutine(FadeLight(emergencyLight, 5f, 0.5f));
+        
+        G.progressManager.quotaSign.SignOff();
 
         OnLightsTurnedOff?.Invoke();
     }
@@ -49,6 +51,8 @@ public class LightManager : MonoBehaviour
         EnableFlashlight(false);
 
         StartCoroutine(FadeLight(emergencyLight, 0f, 0.2f));
+        
+        G.progressManager.quotaSign.SignOn();
 
         OnLightsTurnedOn?.Invoke();
     }

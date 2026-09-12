@@ -12,7 +12,7 @@ public class EconomyManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        G.progressManager.AddProgress(amount);
+        StartCoroutine(G.progressManager.AddProgress(amount));
         UpdateMoneyUI();
         ShowPopup(amount);
     }
