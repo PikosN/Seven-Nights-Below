@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,7 +47,15 @@ public class UpgradeCard : MonoBehaviour
             uiAudioSource.PlayOneShot(buySound, 0.4f);
 
             G.upgradeManager.ApplyUpgrade(upgrade);
-            if (G.upgradeManager.GetUpgradeLevel(upgrade.id) < upgrade.amountOfUpgrades)
+            if (upgrade.isUnique)
+            {
+                List<UpgradeCard> uniqueUpgrades = G.shopUI.activeUpgradeCards.FindAll(up => up.upgrade.isUnique);
+                foreach (var uniqueUpgrade in uniqueUpgrades)
+                {
+                    uniqueUpgrade.SetPurchased();
+                }
+            }
+            else if (G.upgradeManager.GetUpgradeLevel(upgrade.id) < upgrade.amountOfUpgrades)
             {
                 Refresh();
             }
@@ -99,7 +108,7 @@ public class UpgradeCard : MonoBehaviour
         buyButton.interactable = false;
         costText.text = "";
         //statsText.text = $"{Mathf.Pow(upgrade.effectRate, G.upgradeManager.GetUpgradeLevel(upgrade.id) * 100):0.}%";
-        if (upgrade.showStats == true)
+        if (upgrade.isMany)
         {
             buyText.text = "MAXED";
         }

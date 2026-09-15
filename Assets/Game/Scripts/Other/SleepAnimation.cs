@@ -33,7 +33,7 @@ public class SleepAnimation : MonoBehaviour
         yield return MoveCamera(standingPosition, sittingPosition, 0.5f);
         yield return new WaitForSeconds(0.1f);
         yield return MoveCamera(sittingPosition, lyingPosition, 0.5f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
 
         isAnimating = false;
     }
@@ -63,16 +63,27 @@ public class SleepAnimation : MonoBehaviour
             yield return G.dialogueManager.PlayLine("A voice behind the door", "Did you wake up?");
             G.lightManager.EnableFlashlight(true);
             yield return G.dialogueManager.PlayLine("A voice behind the door", "...");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "Get up and start working.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Get up. Turn on the light on the right.");
+            yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+            G.player.ResetCamera(1f);
+            G.player.SetMovementEnabled(true);
+            G.UIManager.SetUIEnabled(true);
+            isAnimating = false;
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Plant and harvest plants.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "You can buy upgrades at the computer.");
             yield return G.dialogueManager.PlayLine("A voice behind the door", "Don't try to open the door.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Go to sleep after meeting the quota.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Good luck.");
         }
-        yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+        else
+        {
+            yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+            G.player.ResetCamera(1f);
 
-        G.player.ResetCamera(1f);
-
-        G.player.SetMovementEnabled(true);
-        G.UIManager.SetUIEnabled(true);
-        isAnimating = false;
+            G.player.SetMovementEnabled(true);
+            G.UIManager.SetUIEnabled(true);
+            isAnimating = false;
+        }
     }
 
     private IEnumerator MoveCamera(Transform from, Transform to, float duration)

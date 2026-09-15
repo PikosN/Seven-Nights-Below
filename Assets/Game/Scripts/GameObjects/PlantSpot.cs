@@ -36,7 +36,6 @@ public class PlantSpot : MonoBehaviour, IInteractable
             {
                 Plant(plant);
             }
-            ;
         }
         if (state == State.Ready) Harvest();
     }
@@ -92,7 +91,7 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 plantData.baseReward,
                 AllUpgrades.GetUpgrade("money").effectRate,
                 G.upgradeManager.GetUpgradeLevel("money")
-            );
+            ) * ((G.upgradeManager.hasMassiveFarmer == 1) ? 2 : 1);
         float bonusChance = GameMath.GetBonusChance(
                 plantData.bonusChance,
                 AllUpgrades.GetUpgrade("bonus_chance").effectRate,
@@ -105,15 +104,40 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 plantData.bonusMoney,
                 AllUpgrades.GetUpgrade("bonus_money").effectRate,
                 G.upgradeManager.GetUpgradeLevel("bonus_money")
-            );
+            ) * ((G.upgradeManager.hasRiskyFarmer == 1) ? 7 : 1);
         }
         G.economyManager.AddMoney(moneyPerPlant + bonusMoney);
 
-        plantVisual.SetActive(true);
-        state = State.Growing;
-        growTimer = 0f;
+        float lossChance = GameMath.GetPlantLossChance(
+            0.25f,
+            AllUpgrades.GetUpgrade("loss_chance").effectRate,
+            G.upgradeManager.GetUpgradeLevel("loss_chance"));
+        if (G.upgradeManager.hasRiskyFarmer == 1)
+        {
+            lossChance += 0.2f;
+        }
 
-        SetGrowthTime();
+        if (G.upgradeManager.hasFastFarmer == 1 || G.upgradeManager.hasMassiveFarmer == 1)
+        {
+            lossChance -= 0.2f;
+        }
+        if (Random.Range(0f, 1f) <= lossChance)
+        {
+            growthBar.SetActive(false);
+            plantVisual.SetActive(false);
+            state = State.Empty;
+            growTimer = 0f;
+            G.plantManager.currentPlants--;
+            G.plantManager.plantSpots.Remove(this);
+        }
+        else
+        {
+            plantVisual.SetActive(true);
+            state = State.Growing;
+            growTimer = 0f;
+            
+            SetGrowthTime();
+        }
     }
 
 
@@ -129,7 +153,7 @@ public class PlantSpot : MonoBehaviour, IInteractable
 
         fillBar.transform.localScale = new Vector3(progress, 1f, 1f);
 
-        plantVisual.transform.localScale = Vector3.one * progress * 2.5f;
+        plantVisual.transform.localScale = Vector3.one * (progress * 2.5f);
         plantVisual.transform.localPosition = new Vector3(0f, 0.35f, 0f);
 
         if (growTimer >= growthTime)
@@ -151,7 +175,7 @@ public class PlantSpot : MonoBehaviour, IInteractable
                 plantData.baseGrowthTime,
                 AllUpgrades.GetUpgrade("growth").effectRate,
                 G.upgradeManager.GetUpgradeLevel("growth")
-            ) + Random.Range(-1.5f, 1.5f);
+            ) * (G.upgradeManager.hasFastFarmer == 1 ? 0.5f : 1f) + Random.Range(-1f, 1f);
     }
 
     public void Reset()

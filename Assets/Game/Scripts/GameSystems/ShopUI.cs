@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +6,11 @@ public class ShopUI : MonoBehaviour
 {
     public GameObject shopPanel;
     public UpgradeCard upgradeCardPrefab;
-    public Transform content;
+    public Transform basicUpgradesTransform;
+    public Transform uniqueUpgradesTransform;
     public GameObject fpMoneyText;
+    
+    public GameObject uniqueUpgradesGameObject;
 
     public InputActionReference cancelAction;
 
@@ -34,7 +36,15 @@ public class ShopUI : MonoBehaviour
     public void CreateUpgradeCard(string id)
     {
         UpgradeData upgrade = AllUpgrades.GetUpgrade(id);
-        UpgradeCard card = Instantiate(upgradeCardPrefab, content);
+        UpgradeCard card;
+        if (upgrade.isUnique)
+        {
+            card = Instantiate(upgradeCardPrefab, uniqueUpgradesTransform);
+        }
+        else
+        {
+            card = Instantiate(upgradeCardPrefab, basicUpgradesTransform);
+        }
         card.Setup(upgrade);
 
         activeUpgradeCards.Add(card);
@@ -73,9 +83,14 @@ public class ShopUI : MonoBehaviour
         
         if (G.prestigeManager.prestigeLevel >= 1)
         {
-            CreateUpgradeCard("autoharvest");
             CreateUpgradeCard("bonus_chance");
             CreateUpgradeCard("bonus_money");
+            CreateUpgradeCard("loss_chance");
+            CreateUpgradeCard("autoharvest");
+            uniqueUpgradesGameObject.SetActive(true);
+            CreateUpgradeCard("fast_farmer");
+            CreateUpgradeCard("massive_farmer");
+            CreateUpgradeCard("risky_farmer");
         }
     }
 }

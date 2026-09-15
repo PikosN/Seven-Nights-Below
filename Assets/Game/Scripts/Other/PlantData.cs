@@ -28,7 +28,7 @@ public static class AllPlants
             baseReward = 10,
             baseGrowthTime = 10f,
             costGrowthRate = 1.2f,
-            bonusChance = 0f,
+            bonusChance = 0.05f,
             bonusMoney = 1,
         },
         new PlantData()

@@ -48,6 +48,10 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (G.progressManager.isDayCompleted)
+        {
+            return;
+        }
         OpenUI();
     }
 
@@ -71,6 +75,10 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
+        if (G.progressManager.isDayCompleted)
+        {
+            return "Day is over. Go to bed.";
+        }
         return "[ E ] Open panel";
     }
 
@@ -107,7 +115,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
         }
         if (energy > 0 && !G.lightManager.isLightOn)
         {
-            timer = -2f;
+            timer = -5f;
             SwitchAudioSource.PlayOneShot(switchSound);
             StartCoroutine(G.lightManager.TurnOnLights());
         }
@@ -149,15 +157,17 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     }
     Color32 GetEnergyColor()
     {
-        if (energy == 0f)
+        if (energy == 0)
         {
             return emptyColor;
         }
-        if (energy <= 3f)
+
+        float energyPercent = (float)energy / maxEnergy;
+        if (energyPercent <= 0.2f)
         {
             return redColor;
         }
-        if (energy <= 8f)
+        if (energyPercent <= 0.6f)
         {
             return yellowColor;
         }
@@ -224,6 +234,10 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
             }
             cursorSpeed = Mathf.Clamp(cursorSpeed + 100f, 250, 1000);
             RandomizeTarget();
+            if (energy >= 14)
+            {
+                timer = -6f;
+            }
         }
         else
         {

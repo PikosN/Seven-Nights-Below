@@ -34,4 +34,10 @@ public static class GameMath
     {
         return Mathf.RoundToInt(baseBonus + bonusPerLevel * level);
     }
+
+    public static float GetPlantLossChance(float basePlantLossChance, float plantLossChancePerLevel, int level)
+    {
+        
+        return basePlantLossChance - plantLossChancePerLevel * level;
+    } 
 }

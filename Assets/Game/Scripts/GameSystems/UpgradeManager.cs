@@ -7,6 +7,9 @@ public class UpgradeManager : MonoBehaviour
     public int hasAutoharvest = 0;
     public int bonusChanceLevel = 0;
     public int bonusMoneyLevel = 0;
+    public int hasFastFarmer = 0;
+    public int hasMassiveFarmer = 0;
+    public int hasRiskyFarmer = 0;
 
     public void ApplyUpgrade(UpgradeData upgrade)
     {
@@ -18,14 +21,23 @@ public class UpgradeManager : MonoBehaviour
             case "money":
                 UpgradeMoney();
                 break;
-            case "autoharvest":
-                UpgradeAutoharvest();
-                break;
             case "bonus_chance":
                 UpgradeBonusChance();
                 break;
             case "bonus_money":
                 UpgradeBonusMoney();
+                break;
+            case "autoharvest":
+                UpgradeAutoharvest();
+                break;
+            case "fast_farmer":
+                UpgradeFastFarmer();
+                break;
+            case "massive_farmer":
+                UpgradeMassiveFarmer();
+                break;
+            case "risky_farmer":
+                UpgradeRiskyFarmer();
                 break;
         }
     }
@@ -74,6 +86,21 @@ public class UpgradeManager : MonoBehaviour
         bonusMoneyLevel++;
     }
 
+    void UpgradeFastFarmer()
+    {
+        hasFastFarmer = 1;
+    }
+
+    void UpgradeMassiveFarmer()
+    {
+        hasMassiveFarmer = 1;
+    }
+
+    void UpgradeRiskyFarmer()
+    {
+        hasRiskyFarmer = 1;
+    }
+
     public void Reset()
     {
         growthLevel = 0;
@@ -81,5 +108,8 @@ public class UpgradeManager : MonoBehaviour
         hasAutoharvest= 0;
         bonusChanceLevel = 0;
         bonusMoneyLevel = 0;
+        hasFastFarmer = 0;
+        hasMassiveFarmer = 0;
+        hasRiskyFarmer = 0;
     }
 }

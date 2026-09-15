@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
 
     private bool isTyping;
 
-    public float typingSpeed = 0.03f;
+    public float typingSpeed = 0.02f;
 
     void Start()
     {
@@ -56,7 +56,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         isTyping = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         G.UIManager.SetCutsceneUIEnabled(false);
         dialogueText.text = "";
     }

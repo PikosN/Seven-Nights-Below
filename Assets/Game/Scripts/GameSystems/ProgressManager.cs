@@ -11,6 +11,8 @@ public class ProgressManager : MonoBehaviour
     public int dayGoal;
     public bool isDayCompleted;
     public QuotaSign quotaSign;
+    
+    public ElectricalPanel electricalPanel;
 
     public void StartDay()
     {
@@ -37,13 +39,11 @@ public class ProgressManager : MonoBehaviour
             if (progress >= 1)
             {
                 isDayCompleted = true;
-                quotaSign.UpdateColor();
+                electricalPanel.energy = 0;
+                quotaSign.Setup();
                 yield break;
             }
             yield return new WaitForSeconds(0.1f);
         }
-        
-        
-        
     }
 }
