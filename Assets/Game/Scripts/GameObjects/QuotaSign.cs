@@ -28,6 +28,7 @@ public class QuotaSign : MonoBehaviour
     
     public void SignOff()
     {
+        Setup();
         StartCoroutine(G.lightManager.FadeLight(signLight, 0f, 3f));
         StartCoroutine(FadeColor(signImage, zeroColor, 3f));
         StartCoroutine(FadeColor(quotaText, zeroColor, 2f));

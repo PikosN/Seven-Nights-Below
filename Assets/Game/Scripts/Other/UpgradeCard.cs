@@ -45,8 +45,9 @@ public class UpgradeCard : MonoBehaviour
         if (G.economyManager.TrySpentMoney(cost))
         {
             uiAudioSource.PlayOneShot(buySound, 0.4f);
-
+            
             G.upgradeManager.ApplyUpgrade(upgrade);
+            
             if (upgrade.isUnique)
             {
                 List<UpgradeCard> uniqueUpgrades = G.shopUI.activeUpgradeCards.FindAll(up => up.upgrade.isUnique);
@@ -61,6 +62,7 @@ public class UpgradeCard : MonoBehaviour
             }
             else
             {
+                Refresh();
                 SetPurchased();
             }
         }
@@ -77,15 +79,14 @@ public class UpgradeCard : MonoBehaviour
             G.upgradeManager.GetUpgradeLevel(upgrade.id)
             );
         int level = G.upgradeManager.GetUpgradeLevel(upgrade.id);
+        
+        // if (upgrade.amountOfUpgrades == 1)
+        // {
+        //     nameText.text = upgrade.name;
+        // }
 
-        if (upgrade.amountOfUpgrades == 1)
-        {
-            nameText.text = upgrade.name;
-        }
-        else
-        {
-            nameText.text = upgrade.name + " " + level;
-        }
+        nameText.text = upgrade.name + " " + level;
+        
 
         // 100% -> 110%
         //if (upgrade.showStats == true)

@@ -24,7 +24,7 @@ public class ProgressManager : MonoBehaviour
         progress = 0f;
         isDayCompleted = false;
 
-        dayGoal = GameMath.GetDayGoal(500, G.prestigeManager.currentDay);
+        dayGoal = GameMath.GetDayGoal(1000, G.prestigeManager.currentDay);
     }
 
     public IEnumerator AddProgress(int amount)

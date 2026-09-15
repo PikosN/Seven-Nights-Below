@@ -5523,7 +5523,7 @@ MonoBehaviour:
   shopMoneyText: {fileID: 1693285011}
   moneyPopupContainer: {fileID: 1157101132}
   moneyPopupPrefab: {fileID: 366225576622016809, guid: 78148928a11360b41b6bea2d95e95c57, type: 3}
-  money: 15
+  money: 99999
 --- !u!114 &1101960984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5541,6 +5541,7 @@ MonoBehaviour:
   hasAutoharvest: 0
   bonusChanceLevel: 0
   bonusMoneyLevel: 0
+  lossChanceLevel: 0
   hasFastFarmer: 0
   hasMassiveFarmer: 0
   hasRiskyFarmer: 0
@@ -5570,8 +5571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef3ff1ae11141b47a3d555f451392be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrestigeManager
-  prestigeLevel: 0
-  currentDay: 1
+  prestigeLevel: 1
+  currentDay: 2
 --- !u!114 &1101960988
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class UpgradeManager : MonoBehaviour
     public int hasAutoharvest = 0;
     public int bonusChanceLevel = 0;
     public int bonusMoneyLevel = 0;
+    public int lossChanceLevel = 0;
     public int hasFastFarmer = 0;
     public int hasMassiveFarmer = 0;
     public int hasRiskyFarmer = 0;
@@ -16,28 +17,31 @@ public class UpgradeManager : MonoBehaviour
         switch (upgrade.id)
         {
             case "growth":
-                UpgradeGrowth();
+                growthLevel++;
                 break;
             case "money":
-                UpgradeMoney();
+                moneyLevel++;
                 break;
             case "bonus_chance":
-                UpgradeBonusChance();
+                bonusChanceLevel++;
                 break;
             case "bonus_money":
-                UpgradeBonusMoney();
+                bonusMoneyLevel++;
+                break;
+            case "loss_chance":
+                lossChanceLevel++;
                 break;
             case "autoharvest":
-                UpgradeAutoharvest();
+                hasAutoharvest = 1;
                 break;
             case "fast_farmer":
-                UpgradeFastFarmer();
+                hasFastFarmer = 1;
                 break;
             case "massive_farmer":
-                UpgradeMassiveFarmer();
+                hasMassiveFarmer++;
                 break;
             case "risky_farmer":
-                UpgradeRiskyFarmer();
+                hasRiskyFarmer++;
                 break;
         }
     }
@@ -56,49 +60,21 @@ public class UpgradeManager : MonoBehaviour
                 return bonusChanceLevel;
             case "bonus_money":
                 return bonusMoneyLevel;
+            case "loss_chance":
+                return lossChanceLevel;
+                break;
+            case "fast_farmer":
+                return hasFastFarmer;
+                break;
+            case "massive_farmer":
+                return hasMassiveFarmer;
+                break;
+            case "risky_farmer":
+                return hasRiskyFarmer;
+                break;
             default: 
                 return 0;
         }
-    }
-    
-    void UpgradeGrowth()
-    {
-        growthLevel++;
-    }
-
-    void UpgradeMoney()
-    {
-        moneyLevel++;
-    }
-
-    void UpgradeAutoharvest()
-    {
-        hasAutoharvest = 1;
-    }
-
-    void UpgradeBonusChance()
-    {
-        bonusChanceLevel++;
-    }
-
-    void UpgradeBonusMoney()
-    {
-        bonusMoneyLevel++;
-    }
-
-    void UpgradeFastFarmer()
-    {
-        hasFastFarmer = 1;
-    }
-
-    void UpgradeMassiveFarmer()
-    {
-        hasMassiveFarmer = 1;
-    }
-
-    void UpgradeRiskyFarmer()
-    {
-        hasRiskyFarmer = 1;
     }
 
     public void Reset()
