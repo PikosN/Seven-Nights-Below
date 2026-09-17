@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +12,23 @@ public class UIManager : MonoBehaviour
     public TMP_Text interactableText;
     public GameObject fpMoneyText;
     public GameObject dialogueUI;
+    public GameObject pauseMenuUI;
+    GameObject pauseMenuPanel;
+    Button resumeButton;
+    Button settingsButton;
+    Button mainMenuButton;
+
+    void Awake()
+    {
+        pauseMenuPanel = pauseMenuUI.transform.Find("Panel").gameObject;
+        resumeButton = pauseMenuUI.transform.Find("ResumeButton").GetComponent<Button>();
+        settingsButton = pauseMenuUI.transform.Find("SettingsButton").GetComponent<Button>();
+        mainMenuButton = pauseMenuUI.transform.Find("ExitButton").GetComponent<Button>();
+
+        resumeButton.onClick.AddListener(() => TogglePauseMenu(false));
+        settingsButton.onClick.AddListener(() => TogglePauseMenu(false));
+    }
+
 
     public void SetInteractableUI(bool value, string text)
     {
@@ -27,6 +46,19 @@ public class UIManager : MonoBehaviour
     public void SetCutsceneUIEnabled(bool enabled)
     {
         dialogueUI.SetActive(enabled);
+    }
+
+    public void TogglePauseMenu(bool enabled)
+    {
+        pauseMenuUI.SetActive(enabled);
+    }
+    void ToggleSettingsMenu(bool enabled)
+    {
+        resumeButton.gameObject.SetActive(!enabled);
+        settingsButton.gameObject.SetActive(!enabled);
+        mainMenuButton.gameObject.SetActive(!enabled);
+
+
     }
 }
 

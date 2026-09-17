@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private float yRotation = 180f;
 
 
-
+    
     public float interactRange = 1.5f;
     public LayerMask interactionLayer;
     
@@ -63,6 +63,12 @@ public class Player : MonoBehaviour
     void Update ()
     {
         if ( !canMove ) return;
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            G.UIManager.TogglePauseMenu(true);
+            SetMovementEnabled(false);
+        }
 
     // движение камерой
         Vector2 mouseDelta = lookAction.action.ReadValue<Vector2>();

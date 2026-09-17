@@ -39,8 +39,9 @@ public class ProgressManager : MonoBehaviour
             if (progress >= 1)
             {
                 isDayCompleted = true;
-                electricalPanel.energy = 0;
+                electricalPanel.AddEnergy(-electricalPanel.maxEnergy);
                 quotaSign.Setup();
+                quotaSign.SignOn();
                 yield break;
             }
             yield return new WaitForSeconds(0.1f);

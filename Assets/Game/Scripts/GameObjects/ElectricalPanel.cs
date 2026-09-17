@@ -130,7 +130,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
         
     }
 
-    void AddEnergy(int n)
+    public void AddEnergy(int n)
     {
         energy = Mathf.Clamp(energy + n, 0, maxEnergy);
         UpdateUIColor();
