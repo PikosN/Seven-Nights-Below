@@ -14,7 +14,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public TMP_Text powerLevelText;
     public Image border;
     
-    public Image  electricityLevelImage;
+    public Image electricityLevelImage;
 
     public Color emptyColor = new Color32(37, 40, 37, 255);
     public Color redColor = new Color32(166, 61, 54, 255);
@@ -37,15 +37,6 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
     public float cursorSpeed = 250f;
     private float cursorDirection = 1f;
 
-    private void OnEnable()
-    {
-        cancelAction.action.Enable();
-    }
-    private void OnDisable()
-    {
-        cancelAction.action.Disable();
-    }
-
     public void Interact()
     {
         if (G.progressManager.isDayCompleted)
@@ -57,17 +48,17 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     public void OpenUI()
     {
-        electricalPanelUI.SetActive(true);
-
         G.player.SetMovementEnabled(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        electricalPanelUI.SetActive(true);
     }
 
     public void CloseUI()
     {
         electricalPanelUI.SetActive(false);
-
+        
         G.player.SetMovementEnabled(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -95,10 +86,6 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (electricalPanelUI.activeSelf && cancelAction.action.WasPressedThisFrame())
-        {
-            CloseUI();
-        }
         if (timer >= cellWorkTime && energy > 0)
         {
             AddEnergy(-1);
@@ -238,6 +225,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
             {
                 timer = -6f;
             }
+            SwitchAudioSource.PlayOneShot(switchSound, 0.5f);
         }
         else
         {

@@ -28,7 +28,7 @@ public class Lamp : MonoBehaviour
 
         if (enabled)
         {
-            StartCoroutine(SmoothVolumeTransition(lampAudioSource, 0.4f, 0.5f));
+            StartCoroutine(SmoothVolumeTransition(lampAudioSource, 0.75f, 0.5f));
 
             materialOfLamp.SetColor("_BaseColor", new Color32(255, 0, 217, 255));
             materialOfLamp.SetColor("_EmissionColor", emissionColor * emissionIntensity);

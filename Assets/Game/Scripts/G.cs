@@ -12,4 +12,6 @@ public class G
     public static LightManager lightManager;
     public static AudioManager audioManager;
     public static DialogueManager dialogueManager;
+    public static SettingsManager settingsManager;
+    public static ElectricalPanel electricalPanel;
 }

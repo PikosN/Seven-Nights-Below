@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     public float gravityValue = -9.81f;
 
     public Transform cameraTransform;
-    public float mouseSensitivity = 0.1f;
     private float xRotation = 0f;
     private float yRotation = 180f;
 
@@ -64,19 +63,13 @@ public class Player : MonoBehaviour
     {
         if ( !canMove ) return;
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            G.UIManager.TogglePauseMenu(true);
-            SetMovementEnabled(false);
-        }
-
     // движение камерой
         Vector2 mouseDelta = lookAction.action.ReadValue<Vector2>();
 
-        yRotation += mouseDelta.x * mouseSensitivity;
+        yRotation += mouseDelta.x * G.settingsManager.sensitivity;
         transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
 
-        xRotation -= mouseDelta.y * mouseSensitivity;
+        xRotation -= mouseDelta.y * G.settingsManager.sensitivity;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     // движение игрока

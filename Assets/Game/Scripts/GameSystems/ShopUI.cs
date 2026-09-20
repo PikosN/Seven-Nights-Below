@@ -12,26 +12,16 @@ public class ShopUI : MonoBehaviour
     
     public GameObject uniqueUpgradesGameObject;
 
-    public InputActionReference cancelAction;
 
     public List<UpgradeCard> activeUpgradeCards;
 
-    private void OnEnable()
-    {
-        cancelAction.action.Enable();
-    }
-    private void OnDisable()
-    {
-        cancelAction.action.Disable();
-    }
-
-    void Update()
-    {
-        if (shopPanel.activeSelf && cancelAction.action.WasPressedThisFrame())
-        {
-            CloseShop();
-        }
-    }
+    // void Update()
+    // {
+    //     if (shopPanel.activeSelf && Keyboard.current.escapeKey.wasPressedThisFrame)
+    //     {
+    //         CloseShop();
+    //     }
+    // }
 
     public void CreateUpgradeCard(string id)
     {

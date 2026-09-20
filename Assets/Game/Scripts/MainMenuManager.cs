@@ -7,13 +7,4 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
-    public void Settings()
-    {
-
-    }
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
 }

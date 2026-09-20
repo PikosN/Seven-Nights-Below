@@ -1,7 +1,9 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,22 +15,29 @@ public class UIManager : MonoBehaviour
     public GameObject fpMoneyText;
     public GameObject dialogueUI;
     public GameObject pauseMenuUI;
-    GameObject pauseMenuPanel;
-    Button resumeButton;
-    Button settingsButton;
-    Button mainMenuButton;
+    public GameObject ConfirmPopup;
 
-    void Awake()
+    void Update()
     {
-        pauseMenuPanel = pauseMenuUI.transform.Find("Panel").gameObject;
-        resumeButton = pauseMenuUI.transform.Find("ResumeButton").GetComponent<Button>();
-        settingsButton = pauseMenuUI.transform.Find("SettingsButton").GetComponent<Button>();
-        mainMenuButton = pauseMenuUI.transform.Find("ExitButton").GetComponent<Button>();
+        if (!Keyboard.current.escapeKey.wasPressedThisFrame) return;
 
-        resumeButton.onClick.AddListener(() => TogglePauseMenu(false));
-        settingsButton.onClick.AddListener(() => TogglePauseMenu(false));
+        if (G.electricalPanel.electricalPanelUI.activeSelf)
+        {
+            G.electricalPanel.CloseUI();
+        }
+        else if (G.shopUI.shopPanel.activeSelf)
+        {
+            G.shopUI.CloseShop();
+        }
+        else if (pauseMenuUI.activeSelf)
+        {
+            TogglePauseMenu(false);
+        }
+        else
+        {
+            TogglePauseMenu(true);
+        }
     }
-
 
     public void SetInteractableUI(bool value, string text)
     {
@@ -50,15 +59,30 @@ public class UIManager : MonoBehaviour
 
     public void TogglePauseMenu(bool enabled)
     {
-        pauseMenuUI.SetActive(enabled);
+        if (enabled)
+        {
+            pauseMenuUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            G.player.SetMovementEnabled(false);
+        }
+        else
+        {
+            pauseMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            G.player.SetMovementEnabled(true);
+        }
+        
     }
-    void ToggleSettingsMenu(bool enabled)
+    
+    public void ToggleConfirmPopup()
     {
-        resumeButton.gameObject.SetActive(!enabled);
-        settingsButton.gameObject.SetActive(!enabled);
-        mainMenuButton.gameObject.SetActive(!enabled);
-
-
+        ConfirmPopup.SetActive(!ConfirmPopup.activeSelf);
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
 

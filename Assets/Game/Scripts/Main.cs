@@ -14,6 +14,8 @@ public class Main : MonoBehaviour
     public LightManager lightManager;
     public AudioManager audioManager;
     public DialogueManager dialogueManager;
+    public SettingsManager settingsManager;
+    public ElectricalPanel electricalPanel;
 
 
     void Awake()
@@ -30,6 +32,8 @@ public class Main : MonoBehaviour
         G.lightManager = lightManager;
         G.audioManager = audioManager;
         G.dialogueManager = dialogueManager;
+        G.settingsManager = settingsManager;
+        G.electricalPanel = electricalPanel;
 
         StartGame();
     }

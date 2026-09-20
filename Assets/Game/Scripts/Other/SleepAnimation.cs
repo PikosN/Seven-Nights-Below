@@ -69,11 +69,10 @@ public class SleepAnimation : MonoBehaviour
             G.player.SetMovementEnabled(true);
             G.UIManager.SetUIEnabled(true);
             isAnimating = false;
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "Plant and harvest plants.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "You can buy upgrades at the computer.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Start with plants. You'll know what to do.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "The computer has everything you need.");
             yield return G.dialogueManager.PlayLine("A voice behind the door", "Don't try to open the door.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "Go to sleep after meeting the quota.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "Good luck.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Meet the quota before you go to sleep.");
         }
         else if (G.prestigeManager.prestigeLevel == 1)
         {
@@ -81,10 +80,9 @@ public class SleepAnimation : MonoBehaviour
             G.UIManager.SetCutsceneUIEnabled(true);
             yield return G.dialogueManager.PlayLine("A voice behind the door", "Wake up.");
             G.lightManager.EnableFlashlight(true);
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "Good job.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "You have completed your first day.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "We wish you will work harder today.");
             yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "You completed your first day.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "We expect you to work harder today.");
             G.player.ResetCamera(1f);
             G.player.SetMovementEnabled(true);
             G.UIManager.SetUIEnabled(true);
@@ -95,9 +93,22 @@ public class SleepAnimation : MonoBehaviour
             yield return new WaitForSeconds(1.2f);
             G.UIManager.SetCutsceneUIEnabled(true);
             G.lightManager.EnableFlashlight(true);
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "You have completed your second day.");
-            yield return G.dialogueManager.PlayLine("A voice behind the door", "We wish you will work way harder today.");
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "You completed your second day.");
             yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "We expect better results today.");
+            G.player.ResetCamera(1f);
+            G.player.SetMovementEnabled(true);
+            G.UIManager.SetUIEnabled(true);
+            isAnimating = false;
+        }
+        else if (G.prestigeManager.prestigeLevel == 3)
+        {
+            yield return new WaitForSeconds(1.2f);
+            G.UIManager.SetCutsceneUIEnabled(true);
+            G.lightManager.EnableFlashlight(true);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "You complete your third day.");
+            yield return MoveCamera(sittingPosition, standingPosition, 0.5f);
+            yield return G.dialogueManager.PlayLine("A voice behind the door", "Your final day. Don't dissapoint us.");
             G.player.ResetCamera(1f);
             G.player.SetMovementEnabled(true);
             G.UIManager.SetUIEnabled(true);

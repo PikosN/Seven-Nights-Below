@@ -52,26 +52,30 @@ public class UpgradeManager : MonoBehaviour
         {
             case "growth":
                 return growthLevel;
+
             case "money":
                 return moneyLevel;
+
             case "autoharvest":
                 return hasAutoharvest;
+
             case "bonus_chance":
                 return bonusChanceLevel;
+                
             case "bonus_money":
                 return bonusMoneyLevel;
+
             case "loss_chance":
                 return lossChanceLevel;
-                break;
+
             case "fast_farmer":
                 return hasFastFarmer;
-                break;
+
             case "massive_farmer":
                 return hasMassiveFarmer;
-                break;
+
             case "risky_farmer":
                 return hasRiskyFarmer;
-                break;
             default: 
                 return 0;
         }
