@@ -39,7 +39,7 @@ public class Lamp : MonoBehaviour
         else
         {
             lampAudioSource.PlayOneShot(offSound, 1f);
-            StartCoroutine(SmoothVolumeTransition(lampAudioSource, 0f, 1f));
+            StartCoroutine(SmoothVolumeTransition(lampAudioSource, 0f, 0.75f));
 
             materialOfLamp.SetColor("_BaseColor", new Color32(127, 127, 127, 255));
             materialOfLamp.SetColor("_EmissionColor", Color.black * 0.1f);

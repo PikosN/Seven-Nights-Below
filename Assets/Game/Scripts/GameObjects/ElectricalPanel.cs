@@ -103,7 +103,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
         if (energy > 0 && !G.lightManager.isLightOn)
         {
             timer = -5f;
-            SwitchAudioSource.PlayOneShot(switchSound);
+            SwitchAudioSource.PlayOneShot(switchSound, 0.5f);
             StartCoroutine(G.lightManager.TurnOnLights());
         }
         if (electricalPanelUI.activeSelf)
@@ -225,7 +225,7 @@ public class ElectricalPanel : MonoBehaviour, IInteractable
             {
                 timer = -6f;
             }
-            SwitchAudioSource.PlayOneShot(switchSound, 0.5f);
+            SwitchAudioSource.PlayOneShot(switchSound, 0.25f);
         }
         else
         {

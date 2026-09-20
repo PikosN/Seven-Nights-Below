@@ -19,21 +19,19 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (!Keyboard.current.escapeKey.wasPressedThisFrame) return;
-
-        if (G.electricalPanel.electricalPanelUI.activeSelf)
+        if (G.electricalPanel.electricalPanelUI.activeSelf && Mouse.current.rightButton.wasPressedThisFrame)
         {
             G.electricalPanel.CloseUI();
         }
-        else if (G.shopUI.shopPanel.activeSelf)
+        else if (G.shopUI.shopPanel.activeSelf && Mouse.current.rightButton.wasPressedThisFrame)
         {
             G.shopUI.CloseShop();
         }
-        else if (pauseMenuUI.activeSelf)
+        else if (pauseMenuUI.activeSelf && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             TogglePauseMenu(false);
         }
-        else
+        else if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             TogglePauseMenu(true);
         }

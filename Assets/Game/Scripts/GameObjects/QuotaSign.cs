@@ -21,21 +21,19 @@ public class QuotaSign : MonoBehaviour
 
     void Awake()
     {
+        signLight = GetComponentInChildren<Light>();
         quotaText =  GetComponentInChildren<TMP_Text>();
         signImage = GetComponentInChildren<Image>();
-        signLight = GetComponentInChildren<Light>();
     }
     
     public void SignOff()
     {
-        Setup();
         StartCoroutine(G.lightManager.FadeLight(signLight, 0f, 3f));
         StartCoroutine(FadeColor(signImage, zeroColor, 3f));
         StartCoroutine(FadeColor(quotaText, zeroColor, 2f));
     }
     public void SignOn()
     {
-        Setup();
         StartCoroutine(G.lightManager.FadeLight(signLight, 0.5f, 3f));
         StartCoroutine(FadeColor(signImage, currentColor, 3f));
         StartCoroutine(FadeColor(quotaText, quotaTextColor, 0.1f));

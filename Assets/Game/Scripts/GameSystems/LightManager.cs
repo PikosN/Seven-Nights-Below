@@ -50,7 +50,7 @@ public class LightManager : MonoBehaviour
 
         EnableFlashlight(false);
 
-        StartCoroutine(FadeLight(emergencyLight, 0f, 0.2f));
+        StartCoroutine(FadeLight(emergencyLight, 1f, 0.2f));
         
         G.progressManager.quotaSign.SignOn();
 
